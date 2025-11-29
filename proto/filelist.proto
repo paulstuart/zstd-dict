@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package filelist;
+
+option go_package = "github.com/paulstuart/zstd-dict/proto/filelist";
+
+// FileListService provides directory listing operations.
+service FileListService {
+  // ListFiles returns a recursive listing of files in the specified directory.
+  rpc ListFiles(ListFilesRequest) returns (ListFilesResponse);
+}
+
+// ListFilesRequest specifies the directory to list.
+message ListFilesRequest {
+  // path is the root directory to list files from.
+  string path = 1;
+  // max_depth limits recursion depth. 0 means unlimited.
+  int32 max_depth = 2;
+}
+
+// ListFilesResponse contains the file listing.
+message ListFilesResponse {
+  // root is the requested directory path.
+  string root = 1;
+  // files is the list of files and directories.
+  repeated FileInfo files = 2;
+  // total_count is the total number of entries returned.
+  int64 total_count = 3;
+}
+
+// FileInfo describes a single file or directory.
+message FileInfo {
+  // path is the full path relative to the root.
+  string path = 1;
+  // name is the base name of the file.
+  string name = 2;
+  // size is the file size in bytes (0 for directories).
+  int64 size = 3;
+  // mode is the file permission mode (unix style).
+  uint32 mode = 4;
+  // mod_time is the modification time as Unix timestamp (seconds).
+  int64 mod_time = 5;
+  // is_dir indicates if this entry is a directory.
+  bool is_dir = 6;
+}

@@ -7,6 +7,7 @@
 *.dll
 *.so
 *.dylib
+demo
 
 # Test binary, built with `go test -c`
 *.test
@@ -16,6 +17,15 @@
 coverage.*
 *.coverprofile
 profile.cov
+
+# zstd artifacts
+*.zst
+# no standard I'm aware of
+*.dict 
+*.dat
+
+# demo data
+!Electric_Vehicle_Population_Data.csv.zstd
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
